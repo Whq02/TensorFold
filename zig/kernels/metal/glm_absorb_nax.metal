@@ -1,4 +1,4 @@
-// GLM's MLA absorb for prompt chunks on the tensor units: each fp32 weight as three exact bf16 parts, so every product is exact.
+// GLM's MLA absorb for prompt chunks on tensor units: each fp32 weight as three exact bf16 parts, every product exact.
 #include <metal_stdlib>
 using namespace metal;
 #include "../nax.h"
