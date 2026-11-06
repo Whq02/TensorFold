@@ -1,4 +1,4 @@
-//! x W^T for affine-quantized W on the tensor units, dense or by expert: exact codes, fp32 group sums and fp32 row sums.
+//! x W^T for affine-quantized W on tensor units, dense or by expert: exact codes, fp32 group sums and fp32 row sums.
 const std = @import("std");
 const mtl = @import("metal");
 const ks = @import("kernel_sources");
