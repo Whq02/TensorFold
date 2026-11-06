@@ -491,8 +491,11 @@ precedence. A request without an effort gets `--reasoning-effort` when the serve
 the template renders its own default, as vLLM and mlx-lm render it (Qwen3.8's is `xhigh`, which adds an instruction
 to the system prompt; `medium` adds none). The template hears an effort only while thinking, and both backends render
 the same prompt for the same request. Effort support depends on the checkpoint's template, and effort does not set a
-token budget. With thinking off, GLM-5.3's prompt is its thinking-off template's: no reasoning-effort line and an
-empty think block. GLM-5.3 keeps every earlier assistant turn's reasoning in the prompt, as zai-org's template does by
+token budget. With thinking off, native passes no reasoning effort to the template. If its generation prefix ends
+in a single `<think>` token, native appends the single `</think>` token, leaving an empty think block. This handles
+GLM-5.3 and LFM2 templates without their own off switch. Other template text stays unchanged: an older GLM-5.3
+template still writes its default `Reasoning Effort: Max` line. GLM-5.3 keeps every earlier assistant turn's reasoning
+in the prompt, as zai-org's template does by
 default (`clear_thinking` false), also on checkpoints whose template still clears it before the last user message, so
 a new user message leaves the earlier turns' tokens, and their kept prompt states, as they were. The native server
 gives the template `clear_thinking` false on every render, and `TF_GLM_CLEAR_THINKING=1` sets it true for the server,
